@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage StyleClass="contentPage" xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SystemLosow.MainPage">
+
+    <ContentPage.Resources>
+        <StyleSheet Source="styles.css"/>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25" Padding="30,0" VerticalOptions="Center">
+
+            <Frame StyleClass="sectionFrame" Padding="15">
+                <VerticalStackLayout>
+                    <Button x:Name="CreateClassBtn" StyleClass="myButton" Text="Create Class" HorizontalOptions="Center" Clicked="OnCreateClassClicked"/>
+                    <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Picker x:Name="ClassPicker" Title="Select Class" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Grid>
+                    <Button x:Name="DeleteClassBtn" StyleClass="myButton" Text="Delete Class" HorizontalOptions="Center" Clicked="OnDeleteClassClicked"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame StyleClass="sectionFrame" Padding="15">
+                <VerticalStackLayout>
+                    <Entry x:Name="StudentNameEntry" Placeholder="Enter student name" HorizontalOptions="FillAndExpand" StyleClass="entryWithMargin"/>
+                    <Button x:Name="AddStudentBtn" StyleClass="buttonWithMargin" Text="Add Student" HorizontalOptions="Center" Clicked="OnAddStudentClicked"/>
+
+                    <ListView x:Name="StudentsListView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="10" ColumnDefinitions="Auto,*,Auto,Auto">
+                                        <Label Grid.Column="0" Text="{Binding NumberWithPeriod}" VerticalOptions="Center"/>
+                                        <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding IsPresent}" Value="False">
+                                                    <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Button Grid.Column="2" Text="✓" CommandParameter="{Binding .}" Clicked="OnToggleAttendanceClicked" BackgroundColor="Transparent" TextColor="White" />
+                                        <Button Grid.Column="3" Text="X" CommandParameter="{Binding .}" Clicked="OnDeleteStudentClicked" BackgroundColor="Transparent" TextColor="Red" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame StyleClass="sectionFrame" Padding="15">
+                <VerticalStackLayout>
+                    <Grid HorizontalOptions="Center" VerticalOptions="Start" ColumnDefinitions="*,Auto">
+                        <Button x:Name="LuckyNumberBtn" StyleClass="myButton" Text="Regenerate" Grid.Column="0" Clicked="OnLuckyNumberClicked"/>
+                        <Label x:Name="LuckyNumberLabel" Text="Lucky Number: -" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start"/>
+                    </Grid>
+                    <Grid HorizontalOptions="Center" ColumnDefinitions="Auto,*">
+                        <Switch x:Name="ToggleAbsenteesSwitch" Grid.Column="0" VerticalOptions="Center"/>
+                        <Label Text="Include Absentees in Draw" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start"/>
+                    </Grid>
+                    <Button x:Name="DrawStudentBtn" StyleClass="myButton" Text="Draw Student" HorizontalOptions="Center" Clicked="OnDrawStudentClicked"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
